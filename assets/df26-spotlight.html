@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DF26 · Session spotlight — reference build</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;500;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="./df26-tokens.css" rel="stylesheet">
+<style>
+  body { margin: 0; background: #F2F7F8; display: flex; justify-content: center; padding: 48px; }
+  /* Asset-local overrides only. Everything else comes from the token layer. */
+  .spotlight__title { font-size: 90px; line-height: .98; letter-spacing: -.03em; }
+</style>
+</head>
+<body>
+
+<!-- ==========================================================================
+     Session spotlight · 1080×1080 (add class nc-asset--45 for 1200×1500)
+     Zones: header → eyebrow → title+subhead → speakers → facts → CTA
+     ========================================================================== -->
+<div class="nc-asset nc-asset--spotlight">
+
+  <svg class="nc-wave" width="1300" height="620" viewBox="0 0 1300 620" aria-hidden="true">
+    <path class="nc-wave__band" d="M0 420 C 230 420 270 120 500 120 C 730 120 770 420 1000 420 C 1160 420 1220 300 1300 220"></path>
+    <path class="nc-wave__line" d="M0 500 C 230 500 270 200 500 200 C 730 200 770 500 1000 500 C 1160 500 1220 380 1300 300"></path>
+  </svg>
+
+  <!-- 01 · header -->
+  <div style="position: relative; display: flex; align-items: center; justify-content: space-between; gap: var(--nc-s3);">
+    <img class="nc-logo--knockout" src="../uploads/neocol_logo_color_horiz (1).png" alt="Neocol" style="height: 50px; width: auto;">
+    <span class="nc-df-pill"><img src="../uploads/df-logo-desktop.svg" alt="Dreamforce" style="height: 42px; width: auto;"></span>
+  </div>
+
+  <!-- 02–03 · eyebrow, title, subhead -->
+  <div style="position: relative; margin-top: 78px; display: flex; flex-direction: column; gap: var(--nc-s3);">
+    <div class="nc-eyebrow">
+      <span class="nc-eyebrow__type">Session Spotlight</span>
+      <span class="nc-eyebrow__dot"></span>
+      <span class="nc-eyebrow__meta">30-Minute Demo</span>
+    </div>
+    <h1 class="nc-display spotlight__title">Headless Revenue<br>Management</h1>
+    <div class="nc-subhead">
+      <div class="nc-subhead__rule"></div>
+      <p class="nc-subhead__text">From Quote to Close with Neocol&rsquo;s ARM High Tech Accelerator</p>
+    </div>
+  </div>
+
+  <!-- 04–06 · speakers, facts, CTA -->
+  <div style="position: relative; margin-top: auto; display: flex; flex-direction: column; gap: 34px;">
+
+    <div class="nc-speakers">
+      <div class="nc-speaker">
+        <img class="nc-speaker__photo" src="../uploads/Dave-Walsh-web.jpg" alt="Dave Walsh">
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <span class="nc-speaker__name">Dave Walsh</span>
+          <span class="nc-speaker__role">SVP, Innovation</span>
+        </div>
+      </div>
+      <div class="nc-speaker">
+        <img class="nc-speaker__photo" src="../uploads/pasted-1788182650771-0.png" alt="Darryl Lutchmipersad">
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <span class="nc-speaker__name">Darryl Lutchmipersad</span>
+          <span class="nc-speaker__role">Head of Innovation</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nc-rule"></div>
+
+    <div class="nc-facts">
+      <div class="nc-fact">
+        <span class="nc-fact__primary">September 15, 2026</span>
+        <!-- Unknown-time state: swap this line for the coral pill reading "Time to come" -->
+        <span class="nc-fact__secondary">3:00&ndash;3:45pm PDT</span>
+      </div>
+      <div class="nc-fact">
+        <span class="nc-fact__primary">Agentforce Lounge &middot; The SPUR Theater</span>
+        <span class="nc-fact__meta">654 Mission Street, Second Floor &middot; San Francisco, CA 94105</span>
+      </div>
+    </div>
+
+    <div>
+      <span class="nc-pill">Save your spot <span style="font-size: 25px;">&rarr;</span></span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

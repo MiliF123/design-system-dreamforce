@@ -1,0 +1,256 @@
+/* ==========================================================================
+   Neocol · Dreamforce 2026 — Campaign token layer
+   Extends the site's existing --nc- layer. Never create parallel tokens,
+   never hardcode a hex value.
+   v1 · Sep 2026
+   ========================================================================== */
+
+:root {
+  /* --- Colour: inherited from the site, verbatim ------------------------- */
+  --nc-navy:      #0D2C39;  /* base ground                                  */
+  --nc-tealmid:   #0A3D4F;  /* brand wave, dark panels                      */
+  --nc-teal:      #3D7986;  /* labels on light grounds, body on white       */
+  --nc-tealb:     #00A3B4;  /* display type, hairlines — never body on white*/
+  --nc-tint:      #E5F1F3;  /* event-wide posts                             */
+  --nc-white:     #FFFFFF;
+  --nc-graybg:    #F2F7F8;  /* light panels                                 */
+  --nc-border:    #DCE5E8;
+  --nc-gray:      #5C6F75;  /* body, captions                               */
+  --nc-logomute:  #93A8AF;  /* partner + client logos ONLY, never text      */
+
+  /* --- Colour: campaign-only accent ------------------------------------- */
+  --nc-coral:     #FB7268;  /* the ONE warm accent. See rules below.        */
+
+  /* Secondary text on dark grounds. Do not add a separate grey token. */
+  --nc-on-dark-2: rgba(255, 255, 255, .7);
+  --nc-rule-dark: rgba(255, 255, 255, .16);
+
+  /* --- Type ------------------------------------------------------------- */
+  --nc-fh: 'Prompt', 'Poppins', 'Century Gothic', sans-serif; /* headings   */
+  --nc-fb: 'Open Sans', system-ui, sans-serif;                /* body      */
+  /* Load Prompt at 500 and 700. The site's Calibri fallback is humanist
+     where Prompt is geometric and reflows visibly — this stack fixes it.   */
+
+  --nc-fs-display: clamp(38px, 5.6vw, 64px);
+  --nc-fs-section: 28px;
+  --nc-fs-lead:    19px;
+  --nc-fs-body:    17px;
+  --nc-fs-caption: 15px;
+
+  --nc-lh-tight: 1.06;  /* headings — the system's signature               */
+  --nc-lh-open:  1.6;   /* body                                            */
+  --nc-tr-display: -0.02em;
+  --nc-tr-section: -0.01em;
+
+  --nc-measure-head: 940px;
+  --nc-measure-body: 620px;
+
+  /* --- Spacing: 8px scale ----------------------------------------------- */
+  --nc-s1: 8px;
+  --nc-s2: 16px;
+  --nc-s3: 24px;   /* headline → subhead                                    */
+  --nc-s4: 40px;   /* → CTA                                                 */
+  --nc-s5: 64px;
+
+  --nc-radius-pill: 999px;
+  --nc-pad-asset:   74px;  /* perimeter padding on a 1080px asset           */
+}
+
+/* --------------------------------------------------------------------------
+   CORAL RULES — non-negotiable
+   Jobs: the date/time badge (which becomes the "live now" badge during the
+   event), the subhead rule, and the CTA. Nothing else.
+     OK    coral fill + navy text ......... 6.02
+     OK    coral rule/marker on navy ...... 6.02
+     NEVER coral text on white or tint .... 2.43  (fails AA)
+     NEVER coral fill touching --nc-tealb fill ... 1.83
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   MEASURED CONTRAST (WCAG AA)
+     navy/white · white/navy .. 14.62  anything
+     navy/tint ................ 12.68  anything
+     white/tealmid ............ 11.71  anything
+     navy/coral ...............  6.02  badge + CTA text
+     gray/white ...............  5.27  body, captions
+     gray/graybg ..............  4.88  body on panels
+     teal/white ...............  4.91  body — do not lighten
+     tealb/navy ...............  4.80  body
+     tealb/white ..............  3.04  DISPLAY ONLY
+     logomute/white ...........  2.48  LOGOS ONLY
+     coral/white ..............  2.43  FILL ONLY
+   -------------------------------------------------------------------------- */
+
+/* ==========================================================================
+   Type primitives
+   ========================================================================== */
+
+.nc-display {
+  font-family: var(--nc-fh);
+  font-size: var(--nc-fs-display);
+  font-weight: 700;
+  line-height: var(--nc-lh-tight);
+  letter-spacing: var(--nc-tr-display);
+  max-width: var(--nc-measure-head);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.nc-section-head {
+  font-family: var(--nc-fh);
+  font-size: var(--nc-fs-section);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: var(--nc-tr-section);
+  margin: 0;
+}
+
+.nc-lead {
+  font-family: var(--nc-fb);
+  font-size: var(--nc-fs-lead);
+  font-weight: 400;
+  line-height: var(--nc-lh-open);
+  max-width: var(--nc-measure-body);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.nc-body {
+  font-family: var(--nc-fb);
+  font-size: var(--nc-fs-body);
+  font-weight: 400;
+  line-height: var(--nc-lh-open);
+  color: var(--nc-gray);
+  max-width: var(--nc-measure-body);
+  margin: 0;
+}
+
+.nc-caption {
+  font-family: var(--nc-fb);
+  font-size: var(--nc-fs-caption);
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Eyebrow: post type in coral + format in white 70% */
+.nc-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--nc-fb);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.nc-eyebrow__type { color: var(--nc-coral); }
+.nc-eyebrow__dot  { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.32); }
+.nc-eyebrow__meta { color: var(--nc-on-dark-2); letter-spacing: 0.13em; }
+
+/* Subhead with coral rule — carries the session's registered wording */
+.nc-subhead { display: flex; gap: 22px; }
+.nc-subhead__rule { width: 4px; background: var(--nc-coral); flex: none; }
+.nc-subhead__text {
+  font-family: var(--nc-fh);
+  font-size: 33px;
+  font-weight: 300;
+  line-height: 1.3;
+  color: rgba(255, 255, 255, .86);
+  max-width: 760px;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* ==========================================================================
+   Components
+   ========================================================================== */
+
+/* Date/time badge · "live now" badge · CTA — all one pill, always navy on coral */
+.nc-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--nc-fh);
+  font-size: 27px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--nc-navy);
+  background: var(--nc-coral);
+  padding: 19px 42px;
+  border-radius: var(--nc-radius-pill);
+  text-decoration: none;
+}
+.nc-pill--sm { font-size: 22px; padding: 14px 30px; }
+.nc-pill__dot { width: 10px; height: 10px; border-radius: 50%; background: var(--nc-navy); }
+
+/* Speaker row */
+.nc-speakers { display: flex; gap: 52px; align-items: center; }
+.nc-speaker   { display: flex; align-items: center; gap: 18px; }
+.nc-speaker__photo {
+  width: 104px; height: 104px; border-radius: 50%;
+  object-fit: cover; display: block;   /* white-background headshot, no ring */
+}
+.nc-speaker__name { font-family: var(--nc-fh); font-size: 29px; font-weight: 500; }
+.nc-speaker__role { font-family: var(--nc-fb); font-size: 17px; color: var(--nc-on-dark-2); }
+
+/* Fact row: date/time + venue, separated by a hairline */
+.nc-rule  { height: 1px; background: var(--nc-rule-dark); }
+.nc-facts { display: flex; gap: 64px; align-items: flex-start; }
+.nc-fact  { display: flex; flex-direction: column; gap: 6px; }
+.nc-fact__primary   { font-family: var(--nc-fh); font-size: 27px; font-weight: 500; }
+.nc-fact__secondary { font-family: var(--nc-fh); font-size: 24px; font-weight: 300; color: var(--nc-on-dark-2); }
+.nc-fact__meta      { font-family: var(--nc-fb); font-size: 18px; line-height: 1.5; color: var(--nc-on-dark-2); }
+
+/* Partner strip — fixed order: Neocol · Prodly · TaskRay · Altify · Chargent.
+   Flat logomute, single weight. Equal optical weight, normalise by area. */
+.nc-partners { display: flex; align-items: center; gap: 26px; }
+.nc-partners img { filter: grayscale(1) brightness(0) invert(72%) sepia(9%) saturate(320%) hue-rotate(155deg); }
+
+/* Logo: white knockout for navy, tealmid and photography */
+.nc-logo--knockout { filter: brightness(0) invert(1); }
+/* Dreamforce mark sits in a white pill on dark grounds */
+.nc-df-pill { display: inline-flex; align-items: center; background: var(--nc-white); border-radius: var(--nc-radius-pill); padding: 12px 24px; }
+
+/* ==========================================================================
+   Asset shells — post type is encoded by ground, not by session
+   ========================================================================== */
+
+.nc-asset {
+  position: relative;
+  width: 1080px; height: 1080px;          /* square variant                  */
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: var(--nc-pad-asset);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--nc-fb);
+}
+.nc-asset--45 { width: 1200px; height: 1500px; }  /* canonical LinkedIn 4:5 */
+
+.nc-asset--spotlight { background: var(--nc-navy);  color: var(--nc-white); }
+.nc-asset--eventwide { background: var(--nc-tint);  color: var(--nc-navy);  }
+.nc-asset--live      { background: var(--nc-navy);  color: var(--nc-white); }
+
+/* Live-from-event scrim: navy at 70% over the lower half, specified not eyeballed */
+.nc-scrim {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(13,44,57,0) 0%, rgba(13,44,57,.7) 50%, rgba(13,44,57,.94) 100%);
+}
+
+/* Brand wave, hinted not decorative */
+.nc-wave { position: absolute; left: -110px; bottom: -60px; opacity: .5; }
+.nc-wave__band { fill: none; stroke: var(--nc-tealmid); stroke-width: 130; stroke-linecap: round; }
+.nc-wave__line { fill: none; stroke: var(--nc-tealb);   stroke-width: 3; opacity: .5; }
+
+/* ==========================================================================
+   Production
+   File naming: df26_[template]_[session-slug]_[version].[ext]
+                lowercase, no spaces — df26_spotlight_slack-approvals_v2.png
+   UTM:         every RSVP/session link carries a per-channel UTM
+                (company page · speaker profiles · Slack)
+   Links:       events.neocol.com/agentforce-lounge-26/linked
+                events.neocol.com/keynote-viewing-26/linked
+                events.neocol.com/hustle-flow-26/linked
+   Never place hashtags or links inside the image — they go in the post copy.
+   ========================================================================== */
